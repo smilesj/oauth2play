@@ -1,0 +1,170 @@
+extends layout
+
+block content
+	h2= title
+
+	#accordion.panel-group
+		.panel.panel-info
+				.panel-heading
+					h4.panel-title
+						a(data-toggle='collapse', data-parent='#accordion', href='#collapseOne')
+							| Step1. Authorization
+				#collapseOne.panel-collapse.collapse
+					.panel-body
+						.modal-body.row
+							.col-md-5
+								strong 권한 선택
+								div(style='padding:5px;')
+								form#auth_select_form(role='form', method='post', action='/AuthUser')
+									input#check_all(type='checkbox', name='check_all', onclick='checkAll();')
+									| 전체선택
+									div(style='padding:5px;')
+									input#check_profile(type='checkbox', name='check_profile', onclick='checkOne();')
+									| 프로필
+									div(style='padding:5px;')
+									input#check_blog(type='checkbox', name='check_blog', onclick='checkOne();')
+									| 블로그
+									div(style='padding:5px;')
+									input#check_calendar(type='checkbox', name='check_calendar', onclick='checkOne();')
+									| 캘린더
+									div(style='padding:5px;')
+									input#check_cafe(type='checkbox', name='check_cafe', onclick='checkOne();')
+									| 카페
+									div(style='padding:10px;')
+									button.btn.btn-primary#btn_userauth(type='submit') 사용자인증
+
+							.col-md-7     
+								strong OAuth parameter
+								textarea.form-control#text_parameter(type='text', name='Parameters_Area', rows='8', style='background:white', readonly='readonly') #{value} 
+								div(style='padding:5px;')
+
+								strong Request
+								textarea.form-control#text_request(type='text', name='Request_Area', rows='8', style='background:white', readonly='readonly') #{Hh}&#10;#{Hcon}&#10;#{Hac}&#10;#{Huser}&#10;#{Hae}&#10;#{Hal}&#10;#{Hco}&#10;#{Raw_req} 
+								div(style='padding:5px;')
+
+								strong Response
+								textarea.form-control#text_response(type='text',name='Response_Area', rows='8', style='background:white', readonly='readonly') #{Response_raw}
+								div(style='padding:5px;')
+
+								button.btn.btn-primary#btn_next(type='submit', onclick='next_to_step2();') Next
+
+								script(type='text/javascript').
+									function 	checkAll() {
+										if(check_all.checked) {
+											check_profile.checked = true;
+											check_blog.checked = true;
+											check_calendar.checked = true;
+											check_cafe.checked = true;
+										}
+										else{
+											check_profile.checked = false;
+											check_blog.checked = false;
+											check_calendar.checked = false;
+											check_cafe.checked = false;
+										}
+									}
+
+									function checkOne() {
+										if(!this.checked)
+											check_all.checked = false;
+									}
+
+									//Next 버튼클릭시, 다음 step 보여주기
+									function next_to_step2() {
+										//collapseTwo.Expandable = true;
+										collapseTwo.Collapsed = false;
+									}
+								
+		.panel.panel-info
+				.panel-heading
+					h4.panel-title
+						a(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo')
+							| Step2. AccessToken Request
+				#collapseTwo.panel-collapse.collapse
+					.panel-body
+						.modal-body.row
+							.col-md-5
+								form(role='form')
+									div  
+										label
+											p Authorization Code
+											textarea.form-control#text_authcode(type='text', rows='1', style='width:300px;', placeholder='#{authcode}')
+											div(style='padding:5px;')
+											button#btn_reqaccess.btn.btn-primary(type='button') Request AccessToken
+									div 
+										label
+											div(style='padding:10px;')
+											p Access Token
+											textarea.form-control#text_accessToken(type='text', rows='1', style='width:500px;')
+									div    
+										label
+											div(style='padding:10px;')
+											p Refresh Token
+											textarea.form-control#text_refreshToken(type='text', rows='1', style='width:500px;')
+							.col-md-7     
+								strong OAuth parameter
+								textarea.form-control#text_parameter(type='text', rows='8', style='background:white', readonly='readonly')
+								div(style='padding:5px;')
+
+								strong Request
+								textarea.form-control#text_request(type='text', rows='8', style='background:white', readonly='readonly')
+								div(style='padding:5px;')
+
+								strong Response
+								textarea.form-control#text_response(type='text', rows='8', style='background:white', readonly='readonly')
+								div(style='padding:5px;')
+
+								button.btn.btn-primary#btn_next(type='submit') Next
+
+		.panel.panel-info
+				.panel-heading
+					h4.panel-title
+						a(data-toggle='collapse', data-parent='#accordion', href='#collapseThree')
+							| Step3. API Call
+				#collapseThree.panel-collapse.collapse
+					.panel-body
+						.modal-body.row
+							.col-md-5
+								strong HTTP Method
+								div(style='padding:5px;')
+								.btn-group
+									button#dropdownMethod.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+										| Action
+										span.caret
+									ul.dropdown-menu(role='menu', aria-labelledby='dropdownMethod')
+										li(role='presentation')
+											a(role='menuitem', href='#') GET
+										li(role='presentaion')
+											a(role='menuitem', href='#') POST
+
+								script
+									$('.dropdown-toggle').dropdown();
+								
+								div(style='padding:5px;')
+								strong Operation List
+								div(style='padding:5px;')
+								.dropdown
+								button#dropdownMethod.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+										| List
+									//- API 별로 리스트뽑아보는법 찾고 menuitem에 추가시키기
+
+								div(style='padding:10px;')
+
+								strong Request URI
+								div(style='padding:5px;')
+								textarea.form-control#text_requrl(type='text', style='background:white', readonly='readonly')
+								div(style='padding:10px;')
+								button.btn.btn-primary#btn_sendreq(type='submit') Send The Request
+
+							.col-md-7
+								strong OAuth parameter
+								textarea.form-control#text_parameter(type='text', rows='8', style='background:white', readonly='readonly')
+								div(style='padding:5px;')
+
+								strong Request
+								textarea.form-control#text_request(type='text', rows='8', style='background:white', readonly='readonly')
+								div(style='padding:5px;')
+								
+								strong Response
+								textarea.form-control#text_response(type='text', rows='8', style='background:white', readonly='readonly')
+

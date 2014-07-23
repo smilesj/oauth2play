@@ -1,0 +1,35 @@
+extends layout
+
+block content
+
+  h2= title
+  p Step2. AccessToken Request
+
+  .container
+    .row
+      .col-md-4
+        form(role='form')
+          div  
+            label
+              p Authorization Code
+              input#text_authcode(type='text')
+              button#btn_reqaccess.btn.btn-primary(type='button') Request AccessToken
+          div 
+            label
+              p Access Token
+              input#text_accessToken(type='text')
+          div    
+            label
+              p Refresh Token
+              input#text_refreshToken(type='text')
+      .col-md-4
+        strong OAuth parameter
+        textarea.form-control#text_parameter(type='text', readonly='readonly')
+
+        strong Request
+        textarea.form-control#text_request(type='text', readonly='readonly')
+        
+        strong Response
+        textarea.form-control#text_response(type='text', readonly='readonly')
+
+        button.btn.btn-primary#btn_next(type='submit') Next

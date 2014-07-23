@@ -1,0 +1,44 @@
+extends layout
+
+block content
+
+  h2= title
+  p Step3. API Call
+
+  .container
+    .row
+      .col-md-4
+        p HTTP Method
+        .btn-group
+          button#dropdownMethod.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+            | Action
+            span.caret
+          ul.dropdown-menu(role='menu', aria-labelledby='dropdownMethod')
+            li(role='presentation')
+              a(role='menuitem', href='#') GET
+            li(role='presentaion')
+              a(role='menuitem', href='#') POST
+
+        script
+          $('.dropdown-toggle').dropdown();
+        
+        p Operation List
+        .dropdown
+        button#dropdownMethod.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+            | List
+          //- API 별로 리스트뽑아보는법 찾고 menuitem에 추가시키기
+
+        p Request URI
+        textarea.form-control#text_parameter(type='text', readonly='readonly')
+
+        button.btn.btn-primary#btn_next(type='submit') Send The Request
+
+      .col-md-4
+        strong OAuth parameter
+          textarea.form-control#text_parameter(type='text', readonly='readonly')
+
+        strong Request
+          textarea.form-control#text_request(type='text', readonly='readonly')
+          
+        strong Response
+          textarea.form-control#text_response(type='text', readonly='readonly')
