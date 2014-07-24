@@ -23,6 +23,7 @@ router.get('/', function(req, res) {
 	//var co = req.cookie.check_blog;
 
 	res.render('step_all', {
+			title: 'OAuth2 Playground',
 			value : "Authorization Code: " + authcode,
 			Hh : "Host: " + Hhost,
 			Hcon : "connection: " + Hconnection,
