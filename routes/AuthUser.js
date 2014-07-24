@@ -9,7 +9,7 @@ router.post('/', function(req, res) {
   //var response_type = vari.response_type;
   var response_type = "code";
   var client_id = "1234567890";
-  var redirect_uri = "http://172.16.12.5:3000/AuthCode_res";
+  var redirect_uri = "http://172.16.12.5:3000/AuthCodeRes";
 
   //Header Parsing
   var Hhost = req.headers['host'];
@@ -54,7 +54,7 @@ router.post('/', function(req, res) {
   else
   {
     if(check_profile == 'on')
-      scope += 'profile ';
+      scope += 'user ';
     if(check_blog == 'on')
       scope += 'blog ';
     if(check_calendar == 'on')
@@ -62,11 +62,8 @@ router.post('/', function(req, res) {
     if(check_cafe == 'on')
       scope += 'cafe ';
   }
-  
-  res.cookie('check_blog', req.body.check_blog);
 
   var AuthorizeURL = 'https://apis.daum.net/oauth2/authorize?response_type=' + response_type + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&scope=' + scope;
-
   res.redirect(AuthorizeURL);
 
 });

@@ -6,9 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var index2 = require('./routes/index2');
 var AuthUser = require('./routes/AuthUser');
-var AuthCode_res = require('./routes/AuthCode_res');
+var AuthCodeRes = require('./routes/AuthCodeRes');
 
 var app = express();
 
@@ -24,9 +23,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/index2',index2);
 app.use('/AuthUser', AuthUser);
-app.use('/AuthCode_res', AuthCode_res);
+app.use('/AuthCodeRes', AuthCodeRes);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -59,5 +57,12 @@ app.use(function(err, req, res, next) {
     });
 });
 
+//cross domain
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');  
+    next();
+});
 
 module.exports = app;

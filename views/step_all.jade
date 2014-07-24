@@ -49,7 +49,7 @@ block content
 								button.btn.btn-primary#btn_next(type='submit', onclick='next_to_step2();') Next
 
 								script(type='text/javascript').
-									function 	checkAll() {
+									function checkAll() {
 										if(check_all.checked) {
 											check_profile.checked = true;
 											check_blog.checked = true;
@@ -88,19 +88,19 @@ block content
 									div  
 										label
 											p Authorization Code
-											textarea.form-control#text_authcode(type='text', rows='1', style='width:300px;', placeholder='#{authcode}')
+											textarea.form-control#text_authcode(type='text', rows='1', style='width:300px;') #{authcode}
 											div(style='padding:5px;')
-											button#btn_reqaccess.btn.btn-primary(type='button') Request AccessToken
+											button#btn_reqaccess.btn.btn-primary(type='button',name='btn_reqaccess', class='reqaccess') Request AccessToken
 									div 
 										label
 											div(style='padding:10px;')
 											p Access Token
-											textarea.form-control#text_accessToken(type='text', rows='1', style='width:500px;')
+											textarea.form-control#text_accessToken(type='text', rows='auto', style='width:500px;')
 									div    
 										label
 											div(style='padding:10px;')
 											p Refresh Token
-											textarea.form-control#text_refreshToken(type='text', rows='1', style='width:500px;')
+											textarea.form-control#text_refreshToken(type='text', rows='auto', style='width:500px;')
 							.col-md-7     
 								strong OAuth parameter
 								textarea.form-control#text_parameter(type='text', rows='8', style='background:white', readonly='readonly')
@@ -115,6 +115,32 @@ block content
 								div(style='padding:5px;')
 
 								button.btn.btn-primary#btn_next(type='submit') Next
+
+								script(type='text/javascript').
+									$(function() {
+										$('#btn_reqaccess').on('click', function() {
+												$.ajax({
+													crossDomain : true,
+													type: "POST",
+													url: 'https://apis.daum.net/oauth2/token',
+													data: {
+														grant_type: "authorization_code",
+														code: '#{authcode}',
+														client_id: "1234567890",
+														client_secret: "75fba1",
+													},
+													success: function(data) {
+														console.log(data);
+														console.log('access_token = ' + data.access_token);
+														console.log('refresh_token = ' + data.refresh_token);
+														console.log('expires_in = ' + data.expires_in);
+														document.getElementById('text_accessToken').value = data.access_token;
+														document.getElementById('text_refreshToken').value = data.refresh_token;
+													}
+												});
+										});
+									}); 
+
 
 		.panel.panel-info
 				.panel-heading
