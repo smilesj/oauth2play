@@ -20,7 +20,11 @@ router.get('/', function(req, res) {
 	var Hal = req.headers['accept-language'];
 	var Hco = req.headers['cookie'];
 
-	//var co = req.cookie.check_blog;
+	console.log('Req 헤더파일');
+	console.log(req.headers);
+
+	console.log('Res 헤더파일');
+	console.log(res.headers);
 
 	res.render('step_all', {
 			title: 'OAuth2 Playground',

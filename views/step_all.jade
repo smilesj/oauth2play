@@ -46,7 +46,7 @@ block content
 								textarea.form-control#text_response(type='text',name='Response_Area', rows='8', style='background:white', readonly='readonly') #{Response_raw}
 								div(style='padding:5px;')
 
-								button.btn.btn-primary#btn_next(type='submit', onclick='next_to_step2();') Next
+								button.btn.btn-primary#btn_next(type='button', onclick='next_to_step2();') Next
 
 								script(type='text/javascript').
 									function checkAll() {
@@ -71,14 +71,14 @@ block content
 
 									//Next 버튼클릭시, 다음 step 보여주기
 									function next_to_step2() {
-										//collapseTwo.Expandable = true;
-										collapseTwo.Collapsed = false;
+										//이전 step이 안닫힘
+										$(function () {$('#collapseTwo').collapse( {toggle: true} )});
 									}
 								
 		.panel.panel-info
 				.panel-heading
 					h4.panel-title
-						a(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo')
+						a(name='colTwo', data-toggle='collapse', data-parent='#accordion', href='#collapseTwo')
 							| Step2. AccessToken Request
 				#collapseTwo.panel-collapse.collapse
 					.panel-body
@@ -114,7 +114,7 @@ block content
 								textarea.form-control#text_response(type='text', rows='8', style='background:white', readonly='readonly')
 								div(style='padding:5px;')
 
-								button.btn.btn-primary#btn_next(type='submit') Next
+								button.btn.btn-primary#btn_next(type='submit', onclick='next_to_step3();') Next
 
 								script(type='text/javascript').
 									$(function() {
@@ -139,7 +139,12 @@ block content
 													}
 												});
 										});
-									}); 
+									});
+
+									//Next 버튼클릭시, 다음 step 보여주기
+									function next_to_step3() {
+										$(function () {$('#collapseThree').collapse( {toggle: true} )});
+									}
 
 
 		.panel.panel-info
