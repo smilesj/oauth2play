@@ -39,11 +39,11 @@ block content
 								div(style='padding:5px;')
 
 								strong Request
-								textarea.form-control#text_request(type='text', name='Request_Area', rows='8', style='background:white', readonly='readonly') #{Hh}&#10;#{Hcon}&#10;#{Hac}&#10;#{Huser}&#10;#{Hae}&#10;#{Hal}&#10;#{Hco}&#10;#{Raw_req} 
+								textarea.form-control#text_request(type='text', name='Request_Area', rows='8', style='background:white', readonly='readonly') #{header_req}
 								div(style='padding:5px;')
 
 								strong Response
-								textarea.form-control#text_response(type='text',name='Response_Area', rows='8', style='background:white', readonly='readonly') #{Response_raw}
+								textarea.form-control#text_response(type='text',name='Response_Area', rows='8', style='background:white', readonly='readonly') #{header_res}
 								div(style='padding:5px;')
 
 								button.btn.btn-primary#btn_next(type='button', onclick='next_to_step2();') Next
@@ -130,16 +130,17 @@ block content
 														client_secret: "75fba1",
 													},
 													success: function(data) {
-														console.log(data);
-														console.log('access_token = ' + data.access_token);
-														console.log('refresh_token = ' + data.refresh_token);
-														console.log('expires_in = ' + data.expires_in);
+														//console.log(data);
+														//console.log('access_token = ' + data.access_token);
+														//console.log('refresh_token = ' + data.refresh_token);
+														//console.log('expires_in = ' + data.expires_in);
+														console.log();
 														document.getElementById('text_accessToken').value = data.access_token;
 														document.getElementById('text_refreshToken').value = data.refresh_token;
 													}
 												});
 										});
-									});
+									}); 
 
 									//Next 버튼클릭시, 다음 step 보여주기
 									function next_to_step3() {

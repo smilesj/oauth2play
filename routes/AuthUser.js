@@ -1,12 +1,10 @@
 var express = require('express');
 var router = express.Router();
-//var vari = require('./Variables.js');
+var request = require('request');
 
 /* Post users listing. */
 router.post('/', function(req, res) {
   //Parameters
-  //vari.response_type = "1234";
-  //var response_type = vari.response_type;
   var response_type = "code";
   var client_id = "1234567890";
   var redirect_uri = "http://172.16.12.5:3000/AuthCodeRes";
@@ -40,7 +38,7 @@ router.post('/', function(req, res) {
   */
 
   var check_all = req.body.check_all;
-  var check_profile = req.body.check__allfile;
+  var check_profile = req.body.check_profile;
   var check_blog = req.body.check_blog;
   var check_calendar = req.body.check_calendar;
   var check_cafe = req.body.check_cafe;
@@ -66,6 +64,23 @@ router.post('/', function(req, res) {
   var AuthorizeURL = 'https://apis.daum.net/oauth2/authorize?response_type=' + response_type + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&scope=' + scope;
   res.redirect(AuthorizeURL);
 
+
+/*
+  request( {
+    method: 'POST',
+    url: 'https://apis.daum.net/oauth2/authorize',
+    form: {
+      response_type: response_type,
+      client_id: client_id,
+      redirect_uri: redirect_uri,
+      scope : scope,
+    }
+  }, function(err, response, body) {
+    console.log('Authorize');
+    console.log(response);
+    res.redirect(redirect_uri);
+  });
+*/
 });
 
 module.exports = router;
