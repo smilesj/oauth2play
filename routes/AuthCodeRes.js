@@ -6,6 +6,7 @@ var header_res = '';
 var r = request.get('https://apis.daum.net/oauth2/authorize?response_type=code&client_id=1234567890&&scope= ', function(err, res, body) {
 
 	//header_res += res.uri.href;
+	//header_res += res.protocol + " " + res.status;
 	for(var header in res.headers) {
 		header_res += (header+ " : " + res.headers[header] + '\n');
 	}
