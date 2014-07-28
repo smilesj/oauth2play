@@ -95,12 +95,12 @@ block content
 										label
 											div(style='padding:10px;')
 											p Access Token
-											textarea.form-control#text_accessToken(type='text', rows='auto', style='width:500px;')
+											textarea.form-control#text_accessToken(type='text',name='text_accessToken', rows='auto', style='width:500px;')
 									div    
 										label
 											div(style='padding:10px;')
 											p Refresh Token
-											textarea.form-control#text_refreshToken(type='text', rows='auto', style='width:500px;')
+											textarea.form-control#text_refreshToken(type='text',name='text_refreshToken', rows='auto', style='width:500px;')
 							.col-md-7     
 								strong OAuth parameter
 								textarea.form-control#text_parameter(type='text', rows='8', style='background:white', readonly='readonly')
@@ -119,10 +119,10 @@ block content
 								script(type='text/javascript').
 									$(function() {
 										$('#btn_reqaccess').on('click', function() {
+												console.log("Button Click");
 												$.ajax({
-													crossDomain : true,
 													type: "POST",
-													url: 'https://apis.daum.net/oauth2/token',
+													url: 'http://172.16.12.5:3000/getAccessToken',
 													data: {
 														grant_type: "authorization_code",
 														code: '#{authcode}',
@@ -130,17 +130,17 @@ block content
 														client_secret: "75fba1",
 													},
 													success: function(data) {
-														//console.log(data);
-														//console.log('access_token = ' + data.access_token);
-														//console.log('refresh_token = ' + data.refresh_token);
-														//console.log('expires_in = ' + data.expires_in);
-														console.log();
-														document.getElementById('text_accessToken').value = data.access_token;
-														document.getElementById('text_refreshToken').value = data.refresh_token;
+														console.log("Ajax");
+														console.log(data);
+														var tmpToken = JSON.parse(data);
+														document.getElementById('text_accessToken').value = tmpToken.access_token;
+														document.getElementById('text_refreshToken').value = tmpToken.refresh_token;
 													}
+
 												});
 										});
-									}); 
+									});
+
 
 									//Next 버튼클릭시, 다음 step 보여주기
 									function next_to_step3() {

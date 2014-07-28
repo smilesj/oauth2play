@@ -12,6 +12,7 @@ router.post('/', function(req, res) {
 	var authcode = req.body.code;
 	var client_id = req.body.client_id;
 	var client_secret = req.body.client_secret;
+	console.log(grant_type);
 
 	//var path = 'https://apis.daum.net/oauth2/token?grant_type='+grant_type+'&code='+authcode+'&client_id='+client_id+'&client_secret='+client_secret;
 	//request(path, function(error, response, body){
@@ -21,25 +22,15 @@ router.post('/', function(req, res) {
 	request( {
 		method: 'POST',
 		url: 'https://apis.daum.net/oauth2/token',
-		data: {
+		form: {
 			grant_type: grant_type,
 			code: authcode,
 			client_id: client_id,
 			client_secret: client_secret,
+			redirect_uri : '/'
 		}
 	}, function(err, response, body) {
-		console.log('---');
-		//var tmpToken = JSON.parse(body);
-		//console.log("-----");
-		//console.log("imhere");
-		//var accessToken = tmpToken.access_token;
-		//var refreshToken = tmpToken.refresh_token;
-		//var json = JSON.stringify({
-		//  accessToken : accessToken
-		//});
-		//res.writeHead(200, {'Content-Type' : 'application/json'});   
-		//res.send(json);
-		//res.render('step_all', { title: "TT" });
+		res.send(body);
 	});
 });
 
