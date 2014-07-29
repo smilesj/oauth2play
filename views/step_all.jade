@@ -103,15 +103,15 @@ block content
 											textarea.form-control#text_refreshToken(type='text',name='text_refreshToken', rows='auto', style='width:500px;')
 							.col-md-7     
 								strong OAuth parameter
-								textarea.form-control#text_parameter(type='text', rows='8', style='background:white', readonly='readonly')
+								textarea.form-control#text_parameter_2(type='text', rows='8', style='background:white', readonly='readonly')
 								div(style='padding:5px;')
 
 								strong Request
-								textarea.form-control#text_request(type='text', rows='8', style='background:white', readonly='readonly')
+								textarea.form-control#text_request_2(type='text', rows='8', style='background:white', readonly='readonly')
 								div(style='padding:5px;')
 
 								strong Response
-								textarea.form-control#text_response(type='text', rows='8', style='background:white', readonly='readonly')
+								textarea.form-control#text_response_2(type='text', rows='8', style='background:white', readonly='readonly')
 								div(style='padding:5px;')
 
 								button.btn.btn-primary#btn_next(type='submit', onclick='next_to_step3();') Next
@@ -131,10 +131,28 @@ block content
 													},
 													success: function(data) {
 														console.log("Ajax");
-														console.log(data);
 														var tmpToken = JSON.parse(data);
-														document.getElementById('text_accessToken').value = tmpToken.access_token;
-														document.getElementById('text_refreshToken').value = tmpToken.refresh_token;
+														var header_res = '';
+														console.log("STEPALL-DATA-HEADER");
+														console.log(data.header_res);
+														console.log("STEPALL-DATA-TOKEN");
+														console.log(data.token);
+														console.log("STEPALL-DATA-TEMP");
+														console.log(tmpToken.token);
+
+														//accessToken, refreshToken
+														document.getElementById('text_accessToken').value = tmpToken.token.access_token;
+														document.getElementById('text_refreshToken').value = tmpToken.token.refresh_token;
+
+														//step 2 header
+														for(var header in tmpToken.header_res) {
+															header_res += (header + " : " + tmpToken.header_res[header] + '\n');
+														}
+
+														//for(var header in data.header_res) {
+														//	header_res += (header + " : " + data.header_res[header] + '\n');
+														//}
+														document.getElementById('text_response_2').value = header_res;
 													}
 
 												});
