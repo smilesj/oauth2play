@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+var url = require('url');
 
 var header_res = '';
-var r = request.get('https://apis.daum.net/oauth2/authorize?response_type=code&client_id=1234567890&&scope= ', function(err, res, body) {
+var r = request.get('https://apis.daum.net/oauth2/authorize?response_type=code&client_id=1234567890&redirect_uri=&scope= ', function(err, res, body) {
 
 	//header_res += res.uri.href;
 	//header_res += res.protocol + " " + res.status;
@@ -19,7 +20,12 @@ router.get('/', function(req, res) {
 	var header_req = '';
 
 	//oauth parameter
-
+	var parameter = {
+		client_id : '1234567890',
+		redirect_uri : '/',
+		response_type : 'code',
+	};	
+	oauth_parameter = JSON.stringify(parameter);
 
 	// request url, method
 	header_req += 'url : ' + req.url + '\n';
@@ -31,7 +37,7 @@ router.get('/', function(req, res) {
 
 	res.render('step_all', {
 			title: 'OAuth2 Playground',
-			value : "Authorization Code: " + authcode,
+			value : "\n {\n code: " + authcode + "\n }",
 			oauth_parameter : oauth_parameter,
 			header_req : header_req,
 			header_res : header_res,

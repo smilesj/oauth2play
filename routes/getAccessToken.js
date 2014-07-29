@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
+var url = require('url');
 
 var header_res = '';
 var r = request.get('https://apis.daum.net/oauth2/token', function(err, res, body) {
@@ -18,8 +19,17 @@ router.post('/', function(req, res) {
 	var client_id = req.body.client_id;
 	var client_secret = req.body.client_secret;
 	var header_req = req.headers;
-	console.log("GETACCESSTOKEN-HEADER");
-	console.log(header_req);
+	//console.log("GETACCESSTOKEN-HEADER");
+	//console.log(header_req);
+	var oauth_parameter = '';
+	var parameter = {
+		grant_type : grant_type,
+		code: authcode,
+		client_id: client_id,
+		client_secret: client_secret,
+		redirect_uri : '/'
+	};	
+	oauth_parameter = JSON.stringify(parameter);
 
 	//access token 요청
 	request( {
@@ -33,8 +43,10 @@ router.post('/', function(req, res) {
 			redirect_uri : '/'
 		}
 	}, function(err, response, body) {
+		//console.log('QUERY');
+		//console.log(response);
 		var token = JSON.parse(body);
-		var value = {"header_res":header_res, "header_req":header_req, "token": token};
+		var value = {"oauth_parameter":oauth_parameter,"header_res":header_res, "header_req":header_req, "token": token};
 		res.send(JSON.stringify(value));
 	});
 });

@@ -35,7 +35,7 @@ block content
 
 							.col-md-7     
 								strong OAuth parameter
-								textarea.form-control#text_parameter(type='text', name='Parameters_Area', rows='8', style='background:white', readonly='readonly') #{value} #{oauth_parameter} 
+								textarea.form-control#text_parameter(type='text', name='Parameters_Area', rows='8', style='background:white', readonly='readonly') #{oauth_parameter}
 								div(style='padding:5px;')
 
 								strong Request
@@ -43,7 +43,7 @@ block content
 								div(style='padding:5px;')
 
 								strong Response
-								textarea.form-control#text_response(type='text',name='Response_Area', rows='8', style='background:white', readonly='readonly') #{header_res}
+								textarea.form-control#text_response(type='text',name='Response_Area', rows='8', style='background:white', readonly='readonly') #{header_res} #{value}
 								div(style='padding:5px;')
 
 								button.btn.btn-primary#btn_next(type='button', onclick='next_to_step2();') Next
@@ -65,8 +65,10 @@ block content
 									}
 
 									function checkOne() {
-										if(!this.checked)
+										if(!this.checked){
 											check_all.checked = false;
+											$.cookie(this.id, 0);
+										}
 									}
 
 									//Next 버튼클릭시, 다음 step 보여주기
@@ -135,10 +137,15 @@ block content
 
 														//data.token , tempToekn.token
 
+														//oauth parameter
+														document.getElementById('text_parameter_2').value = tmpToken.oauth_parameter;
+
 														//accessToken, refreshToken
 														document.getElementById('text_accessToken').value = tmpToken.token.access_token;
 														document.getElementById('text_refreshToken').value = tmpToken.token.refresh_token;
 
+														console.log("SCOPSE");
+														//console.log(JSON.parse(tmpToken.token.scopse));
 														//step 2 request
 														for(var header in tmpToken.header_req) {
 															header_req += (header + " : " + tmpToken.header_req[header] + '\n');
@@ -149,6 +156,7 @@ block content
 														for(var header in tmpToken.header_res) {
 															header_res += (header + " : " + tmpToken.header_res[header] + '\n');
 														}
+														header_res += '\n' + JSON.stringify(tmpToken.token);
 														document.getElementById('text_response_2').value = header_res;
 													}
 
