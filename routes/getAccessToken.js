@@ -8,9 +8,6 @@ var r = request.get('https://apis.daum.net/oauth2/token', function(err, res, bod
 	//	header_res += (header+ " : " + res.headers[header] + '\n');
 	//}
 	header_res = res.headers;
-	console.log("GETACCESSTOKEN-HEADER");
-	console.log(header_res);
-
 });
 
 /* GET users listing. */
@@ -20,6 +17,9 @@ router.post('/', function(req, res) {
 	var authcode = req.body.code;
 	var client_id = req.body.client_id;
 	var client_secret = req.body.client_secret;
+	var header_req = req.headers;
+	console.log("GETACCESSTOKEN-HEADER");
+	console.log(header_req);
 
 	//access token 요청
 	request( {
@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
 		}
 	}, function(err, response, body) {
 		var token = JSON.parse(body);
-		var value = {"header_res":header_res, "token": token};
+		var value = {"header_res":header_res, "header_req":header_req, "token": token};
 		res.send(JSON.stringify(value));
 	});
 });
