@@ -21,8 +21,9 @@ router.get('/', function(req, res) {
 	var oauth_parameter = '';
 	var header_req = '';
 
-	console.log("???????/");
-	console.log(res.protocol+"/"+res.httpVersion + "  " + res.statusCode + " " + res.reasonPhrase);
+	//console.log("COOKIE = " + req.cookies.check_all);
+	//console.log("???????/");
+	//console.log(res.protocol+"/"+res.httpVersion + "  " + res.statusCode + " " + res.reasonPhrase);
 	//oauth parameter
 	var parameter = {
 		client_id : '1234567890',

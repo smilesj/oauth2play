@@ -30,18 +30,33 @@ router.post('/', function(req, res) {
   if(check_all == 'on')
   {
     scope ='';
+    //res.cookie('check_all',check_all);
   }
   else
   {
-    if(check_profile == 'on')
+    if(check_profile == 'on') { 
       scope += 'user ';
-    if(check_blog == 'on')
+      //res.cookie('check_profile',check_profile);
+    }
+    if(check_blog == 'on') {
       scope += 'blog ';
-    if(check_calendar == 'on')
+      //res.cookie('check_blog',check_blog);
+    }
+    if(check_calendar == 'on') {
       scope += 'calendar ';
-    if(check_cafe == 'on')
+      //res.cookie('check_calendar',check_calendar);
+    }
+    if(check_cafe == 'on') {
       scope += 'cafe ';
+      //res.cookie('check_cafe',check_cafe);
+    }
   }
+
+//res.cookie('check_all',check_all);
+//res.cookie('check_profile',check_profile);
+//res.cookie('check_blog',check_blog);
+//res.cookie('check_calendar',check_calendar);
+//res.cookie('check_cafe',check_cafe);
 
   var AuthorizeURL = 'https://apis.daum.net/oauth2/authorize?response_type=' + response_type + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&scope=' + scope;
   res.redirect(AuthorizeURL);

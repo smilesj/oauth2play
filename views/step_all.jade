@@ -19,16 +19,16 @@ block content
 									input#check_all(type='checkbox', name='check_all', onclick='checkAll();')
 									| 전체선택
 									div(style='padding:5px;')
-									input#check_profile(type='checkbox', name='check_profile', onclick='checkOne();')
+									input#check_profile(type='checkbox', name='check_profile', onclick='checkProfile();')
 									| 프로필
 									div(style='padding:5px;')
-									input#check_blog(type='checkbox', name='check_blog', onclick='checkOne();')
+									input#check_blog(type='checkbox', name='check_blog', onclick='checkBlog();')
 									| 블로그
 									div(style='padding:5px;')
-									input#check_calendar(type='checkbox', name='check_calendar', onclick='checkOne();')
+									input#check_calendar(type='checkbox', name='check_calendar', onclick='checkCalendar();')
 									| 캘린더
 									div(style='padding:5px;')
-									input#check_cafe(type='checkbox', name='check_cafe', onclick='checkOne();')
+									input#check_cafe(type='checkbox', name='check_cafe', onclick='checkCafe();')
 									| 카페
 									div(style='padding:10px;')
 									button.btn.btn-primary#btn_userauth(type='submit') 사용자인증
@@ -49,6 +49,17 @@ block content
 								button.btn.btn-primary#btn_next(type='button', onclick='next_to_step2();') Next
 
 								script(type='text/javascript').
+									if($.cookie('check_all') == 'true')
+										check_all.checked = true;
+									if($.cookie('check_profile') == 'true')
+										check_profile.checked = true;
+									if($.cookie('check_blog') == 'true')
+										check_blog.checked = true;
+									if($.cookie('check_calendar') == 'true')
+										check_calendar.checked = true;
+									if($.cookie('check_cafe') == 'true')
+										check_cafe.checked = true;
+
 									function checkAll() {
 										if(check_all.checked) {
 											check_profile.checked = true;
@@ -62,13 +73,43 @@ block content
 											check_calendar.checked = false;
 											check_cafe.checked = false;
 										}
+										$.cookie('check_all', check_all.checked);
+										$.cookie('check_profile', check_profile.checked);
+										$.cookie('check_blog', check_blog.checked);
+										$.cookie('check_calendar', check_calendar.checked);
+										$.cookie('check_cafe', check_cafe.checked);
 									}
 
-									function checkOne() {
-										if(!this.checked){
+									function checkProfile() {
+										if(!check_profile.checked){
 											check_all.checked = false;
-											$.cookie(this.id, 0);
 										}
+										$.cookie('check_all', check_all.checked);
+										$.cookie('check_profile',check_profile.checked);
+									}
+
+									function checkBlog() {
+										if(!check_blog.checked){
+											check_all.checked = false;
+										}
+										$.cookie('check_all', check_all.checked);
+										$.cookie('check_blog',check_blog.checked);
+									}
+
+									function checkCalendar() {
+										if(!check_calendar.checked){
+											check_all.checked = false;
+										}
+										$.cookie('check_all', check_all.checked);
+										$.cookie('check_calendar',check_calendar.checked);
+									}
+
+									function checkCafe() {
+										if(!check_cafe.checked){
+											check_all.checked = false;
+										}
+										$.cookie('check_all', check_all.checked);
+										$.cookie('check_cafe',check_cafe.checked);
 									}
 
 									//Next 버튼클릭시, 다음 step 보여주기
