@@ -47,11 +47,7 @@ router.post('/', function(req, res) {
     }
   }
 
-res.cookie('step','1');
-//res.cookie('check_profile',check_profile);
-//res.cookie('check_blog',check_blog);
-//res.cookie('check_calendar',check_calendar);
-//res.cookie('check_cafe',check_cafe);
+  res.cookie('step','1');
 
   var AuthorizeURL = 'https://apis.daum.net/oauth2/authorize?response_type=' + response_type + '&client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&scope=' + scope;
   res.redirect(AuthorizeURL);

@@ -2,14 +2,19 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var url = require('url');
+var http = require('http');
 
 var header_res = '';
-var r = request.get('https://apis.daum.net/oauth2/authorize?response_type=code&client_id=1234567890&redirect_uri=&scope= ', function(err, res, body) {
+var r = request.get('https://apis.daum.net/oauth2/authorize', function(err, res, body) {
 	//console.log('RES');
 	//console.log(res);
 	//header_res += res.uri.href;
 	//출력할때 undefined...!!!!!!!
-	header_res += res.protocol+"/"+res.httpVersion + "  " + res.statusCode + " " + res.reason+'\n';
+
+	//console.log("RESPONSE!");
+	//console.log(res.info);
+	//console.log(res.reasonPhrase);
+	header_res += res.protocol+"/"+res.httpVersion + "  " + res.statusCode + '\n';
 	for(var header in res.headers) {
 		header_res += (header+ " : " + res.headers[header] + '\n');
 	}
@@ -21,7 +26,6 @@ router.get('/', function(req, res) {
 	var oauth_parameter = '';
 	var header_req = '';
 
-	//console.log("COOKIE = " + req.cookies.check_all);
 	//console.log("???????/");
 	//console.log(res.protocol+"/"+res.httpVersion + "  " + res.statusCode + " " + res.reasonPhrase);
 	//oauth parameter
@@ -34,7 +38,7 @@ router.get('/', function(req, res) {
 
 	// request url, method
 	header_req += req.method + ' ' + req.url + ' ' + req.protocol+'/'+req.httpVersion + '\n';
-	//header_req += 'url : ' + req.url + '\n';
+
 	//request header 목록 출력
 	for(var header in req.headers) {
 		header_req += (header+ " : " + req.headers[header] + '\n');
