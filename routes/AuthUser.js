@@ -30,29 +30,24 @@ router.post('/', function(req, res) {
   if(check_all == 'on')
   {
     scope ='';
-    //res.cookie('check_all',check_all);
   }
   else
   {
     if(check_profile == 'on') { 
       scope += 'user ';
-      //res.cookie('check_profile',check_profile);
     }
     if(check_blog == 'on') {
       scope += 'blog ';
-      //res.cookie('check_blog',check_blog);
     }
     if(check_calendar == 'on') {
       scope += 'calendar ';
-      //res.cookie('check_calendar',check_calendar);
     }
     if(check_cafe == 'on') {
       scope += 'cafe ';
-      //res.cookie('check_cafe',check_cafe);
     }
   }
 
-//res.cookie('check_all',check_all);
+res.cookie('step','1');
 //res.cookie('check_profile',check_profile);
 //res.cookie('check_blog',check_blog);
 //res.cookie('check_calendar',check_calendar);
