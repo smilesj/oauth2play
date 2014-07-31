@@ -31,12 +31,12 @@ block content
                   input#check_cafe(type='checkbox', name='check_cafe', onclick='checkCafe();')
                   | 카페
                   div(style='padding:10px;')
-                  button.btn.btn-primary#btn_userauth(type='submit') 사용자인증
-                  div(style='padding:10px;')
-                  .alert.alert-info
-                      button#alert_api.close(type='button', data-dismiss='alert') ×
-                      strong 경고!
-                      |  요청하실 API를 선택하세요!
+                  button.btn.btn-primary#btn_userauth(type='submit', disabled=true) 사용자인증
+                  //-div(style='padding:10px;')
+                  //-.alert.alert-info
+                  //-    button#alert_api.close(type='button', data-dismiss='alert') ×
+                  //-    strong 경고!
+                  //-    |  요청하실 API를 선택하세요!
 
               .col-md-7     
                 strong OAuth parameter
@@ -79,12 +79,14 @@ block content
                       check_blog.checked = true;
                       check_calendar.checked = true;
                       check_cafe.checked = true;
+                      btn_userauth.disabled = false;
                     }
                     else{
                       check_profile.checked = false;
                       check_blog.checked = false;
                       check_calendar.checked = false;
                       check_cafe.checked = false;
+                      btn_userauth.disabled = true;
                     }
                     $.cookie('step','1');
                     $.cookie('check_all', check_all.checked);
@@ -101,6 +103,9 @@ block content
                     $.cookie('step','1');
                     $.cookie('check_all', check_all.checked);
                     $.cookie('check_profile',check_profile.checked);
+                    btn_userauth.disabled = false;
+                    if(!check_all.checked && !check_profile.checked && !check_blog.checked  && !check_calendar.checked && !check_cafe.checked)
+                      btn_userauth.disabled = true;
                   }
 
                   function checkBlog() {
@@ -110,6 +115,9 @@ block content
                     $.cookie('step','1');
                     $.cookie('check_all', check_all.checked);
                     $.cookie('check_blog',check_blog.checked);
+                    btn_userauth.disabled = false;
+                    if(!check_all.checked && !check_profile.checked && !check_blog.checked  && !check_calendar.checked && !check_cafe.checked)
+                      btn_userauth.disabled = true;
                   }
 
                   function checkCalendar() {
@@ -119,6 +127,9 @@ block content
                     $.cookie('step','1');
                     $.cookie('check_all', check_all.checked);
                     $.cookie('check_calendar',check_calendar.checked);
+                    btn_userauth.disabled = false;
+                    if(!check_all.checked && !check_profile.checked && !check_blog.checked  && !check_calendar.checked && !check_cafe.checked)
+                      btn_userauth.disabled = true;
                   }
 
                   function checkCafe() {
@@ -128,6 +139,9 @@ block content
                     $.cookie('step','1');
                     $.cookie('check_all', check_all.checked);
                     $.cookie('check_cafe',check_cafe.checked);
+                    btn_userauth.disabled = false;
+                    if(!check_all.checked && !check_profile.checked && !check_blog.checked  && !check_calendar.checked && !check_cafe.checked)
+                      btn_userauth.disabled = true;
                   }
 
                   function clickStep1() {
@@ -247,15 +261,16 @@ block content
 
                   //Next 버튼클릭시, 다음 step 보여주기
                   function next_to_step3() {
-                    if( $('text_accessToken').value = 'undefined' && $('text_refreshToken').value = 'undefined')
+                    //if( $('text_accessToken').value = 'undefined' && $('text_refreshToken').value = 'undefined')
                     {
                       console.log("Token을 요청하세요!");
                     }
-                    else {
+                    //else {
                       $.cookie('step','3');
+                      $('#collapseOne').hide();
                       $('#collapseTwo').hide();
                       $('#collapseThree').show();
-                    }
+                    //}
                   }
 
 
