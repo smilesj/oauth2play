@@ -23,8 +23,11 @@ var r = request.get('https://apis.daum.net/oauth2/authorize', function(err, res,
 router.get('/', function(req, res) {
 	/* Query값 갖고오기 */
 	var authcode = req.query.code;
+	//var data = { 'code' : authcode };
+	//var authcode = JSON.parse(data);
 	var oauth_parameter = '';
 	var header_req = '';
+	var value = JSON.stringify({'code' : authcode}, null, 4);
 
 	//console.log("???????/");
 	//console.log(res.protocol+"/"+res.httpVersion + "  " + res.statusCode + " " + res.reasonPhrase);
@@ -34,19 +37,19 @@ router.get('/', function(req, res) {
 		redirect_uri : '/',
 		response_type : 'code',
 	};	
-	oauth_parameter = JSON.stringify(parameter);
+	oauth_parameter = JSON.stringify(parameter, null, 4);
 
 	// request url, method
 	header_req += req.method + ' ' + req.url + ' ' + req.protocol+'/'+req.httpVersion + '\n';
-	//header_req += 'url : ' + req.url + '\n';
+
 	//request header 목록 출력
 	for(var header in req.headers) {
-		header_req += (header+ " : " + req.headers[header] + '\n');
+		header_req += (header+ ' : ' + req.headers[header] + '\n');
 	}
 
 	res.render('step_all', {
 			title: 'OAuth2 Playground',
-			value : "\n {\n code: " + authcode + "\n }",
+			value : value,
 			oauth_parameter : oauth_parameter,
 			header_req : header_req,
 			header_res : header_res,

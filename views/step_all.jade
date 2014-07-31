@@ -238,7 +238,7 @@ block content
                             for(var header in tmpToken.header_res) {
                               header_res += (header + " : " + tmpToken.header_res[header] + '\n');
                             }
-                            header_res += '\n' + JSON.stringify(tmpToken.token);
+                            header_res += '\n' + JSON.stringify(tmpToken.token, null, 4);
                             document.getElementById('text_response_2').value = header_res;
                           }
 

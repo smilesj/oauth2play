@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
 		client_secret: client_secret,
 		redirect_uri : '/'
 	};	
-	oauth_parameter = JSON.stringify(parameter);
+	oauth_parameter = JSON.stringify(parameter, null, 4);
 
 	//access token 요청
 	request( {
