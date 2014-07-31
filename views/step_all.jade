@@ -104,7 +104,7 @@ block content
                     $.cookie('check_all', check_all.checked);
                     $.cookie('check_profile',check_profile.checked);
                     btn_userauth.disabled = false;
-                    if(!check_all.checked && !check_profile.checked && !check_blog.checked  && !check_calendar.checked && !check_cafe.checked)
+                    if(!check_all.checked && !check_profile.checked && !check_blog.checked && !check_calendar.checked && !check_cafe.checked)
                       btn_userauth.disabled = true;
                   }
 
@@ -153,16 +153,10 @@ block content
 
                   //Next 버튼클릭시, 다음 step 보여주기
                   function next_to_step2() {
-                    if(!check_all.checked && !check_profile.checked && !check_blog.checked  && !check_calendar.checked && !check_cafe.checked)
-                    {
-                      console.log("요청하실 API를 선택하세요!");
-                    }
-                    else { 
-                      $.cookie('step','2');
-                      $('#collapseOne').hide();
-                      $('#collapseTwo').show();
-                      $('#collapseThree').hide();
-                    }
+                    $.cookie('step','2');
+                    $('#collapseOne').hide();
+                    $('#collapseTwo').show();
+                    $('#collapseThree').hide();
                   }
                 
     .panel.panel-info
@@ -261,16 +255,10 @@ block content
 
                   //Next 버튼클릭시, 다음 step 보여주기
                   function next_to_step3() {
-                    //if( $('text_accessToken').value = 'undefined' && $('text_refreshToken').value = 'undefined')
-                    {
-                      console.log("Token을 요청하세요!");
-                    }
-                    //else {
-                      $.cookie('step','3');
-                      $('#collapseOne').hide();
-                      $('#collapseTwo').hide();
-                      $('#collapseThree').show();
-                    //}
+                    $.cookie('step','3');
+                    $('#collapseOne').hide();
+                    $('#collapseTwo').hide();
+                    $('#collapseThree').show();
                   }
 
 

@@ -38,7 +38,7 @@ router.get('/', function(req, res) {
 
 	// request url, method
 	header_req += req.method + ' ' + req.url + ' ' + req.protocol+'/'+req.httpVersion + '\n';
-
+	//header_req += 'url : ' + req.url + '\n';
 	//request header 목록 출력
 	for(var header in req.headers) {
 		header_req += (header+ " : " + req.headers[header] + '\n');
